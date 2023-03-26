@@ -1,0 +1,14 @@
+# Firebase configuration files
+google-services.json
+google-services-desktop.json
+google-services.plist
+
+# Local configuration file (sdk dir)
+/local.properties
+
+# Gradle files
+/.gradle
+/build
+*.apk
+*.aar
+*.jks

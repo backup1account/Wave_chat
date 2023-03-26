@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/loginFragment">
+
+    <fragment android:id="@+id/chatFragment" android:name="com.example.project_app.ChatFragment"
+              android:label="fragment_chat_list" tools:layout="@layout/fragment_chat_list">
+        <action android:id="@+id/action_chatFragment_to_loginFragment" app:destination="@id/loginFragment"/>
+    </fragment>
+    <fragment android:id="@+id/registerFragment" android:name="com.example.project_app.RegisterFragment"
+              android:label="fragment_register" tools:layout="@layout/fragment_register">
+        <action android:id="@+id/action_registerFragment_to_chatFragment" app:destination="@id/chatFragment"/>
+        <action android:id="@+id/action_registerFragment_to_loginFragment2" app:destination="@id/loginFragment"/>
+    </fragment>
+    <fragment android:id="@+id/loginFragment" android:name="com.example.project_app.LoginFragment"
+              android:label="fragment_login" tools:layout="@layout/fragment_login">
+        <action android:id="@+id/action_loginFragment_to_chatFragment" app:destination="@id/chatFragment"/>
+        <action android:id="@+id/action_loginFragment_to_registerFragment2" app:destination="@id/registerFragment"/>
+    </fragment>
+</navigation>
