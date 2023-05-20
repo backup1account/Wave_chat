@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:focusable="true"
+                  android:focusableInTouchMode="true"
+                  android:layout_gravity="center"
+                  android:layout_marginVertical="25dp"
+                  android:orientation="horizontal">
+
+        <ImageButton
+                android:id="@+id/go_back_search_users_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchUsersSearchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search..."
+                app:searchIcon="@null"
+                style="@style/MySearchViewStyle" />
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/loadingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading..."
+            android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rViewSearchList"
+            android:name="com.example.project_app.SearchUsersFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="25dp"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".SearchUsersFragment"
+            android:visibility="gone"
+            tools:listitem="@layout/fragment_search_users"/>
+
+</LinearLayout>

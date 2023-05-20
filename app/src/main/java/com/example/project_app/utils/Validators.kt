@@ -1,4 +1,4 @@
-package com.example.project_app.data
+package com.example.project_app.utils
 
 object Validators {
     fun checkEmail(email: String): Boolean {
@@ -10,5 +10,10 @@ object Validators {
     fun checkPassword(password: String): Boolean {
         val pattern = "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{5,}".toRegex()
         return pattern.matches(password)
+    }
+
+    fun checkName(name: String): Boolean {
+        val regex = Regex("[A-Za-z]+")
+        return name.matches(regex)
     }
 }

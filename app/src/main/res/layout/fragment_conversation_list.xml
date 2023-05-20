@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+        <ImageButton
+                android:id="@+id/go_back_from_conversation_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        <ImageView
+                android:id="@+id/conversationUserPfpNavbar"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginLeft="14dp"
+                android:scaleType="centerCrop"/>
+
+        <TextView
+                android:id="@+id/conversationUserNameNavbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="#656565"
+                android:textSize="17sp"
+                android:textAppearance="?attr/textAppearanceListItem"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/conversationRView"
+            android:name="com.example.project_app.ConversationFragment"
+            android:background="#F3F3F3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="63dp"
+            android:layout_marginBottom="98dp"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ConversationFragment"
+            tools:listitem="@layout/fragment_conversation"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:layout_marginVertical="8dp"
+            android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sendMessageTextInputLayout"
+                android:layout_width="330dp"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="13dp"
+                android:hint="Type your message..."
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sendMessageTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+            <ImageButton
+                    android:id="@+id/selectCompleteSentencesMsgBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginVertical="5dp"
+                    android:background="@drawable/pfp_change_icon"
+                    android:src="@drawable/ic_baseline_library_books_24"/>
+
+            <ImageButton
+                    android:id="@+id/sendMessageBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/pfp_change_icon"
+                    android:src="@drawable/ic_baseline_send_24"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

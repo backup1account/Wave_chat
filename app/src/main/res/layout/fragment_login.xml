@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:layout_marginHorizontal="60dp"
               android:gravity="center_horizontal|center_vertical"
-              tools:context=".LoginFragment"
+              tools:context=".ui.auth.LoginFragment"
               android:orientation="vertical"
               android:focusableInTouchMode="true">
 

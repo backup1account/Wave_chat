@@ -10,9 +10,64 @@
         <item name="colorSecondaryVariant">@color/darker_blue</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/blue_basic</item>
+        <item name="android:statusBarColor">@color/blue_basic</item>
     </style>
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+<!--    TODO: SEARCHVIEW DO CHATU, POPRAWIC -->
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Change text size and color -->
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">#333333</item>
+        <!-- Change underline color -->
+        <item name="colorControlNormal">#333333</item>
+    </style>
+
+    <style name="App.Chat.SearchUsers" parent="Widget.AppCompat.SearchView">
+<!--        <item name="searchIcon">@null</item>-->
+    </style>
+
+
+    <!--  Fields in User Settings (TextLayoutInput)  -->
+    <style name="App.UserSettings.Fields" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:layout_marginLeft">20sp</item>
+        <item name="android:layout_marginRight">20sp</item>
+        <item name="hintTextColor">@color/a_bit_lighter_black</item>
+        <item name="android:textColorHint">@color/a_bit_lighter_black</item>
+<!--        <item name="startIconTint">@color/a_bit_lighter_black</item>-->
+        <item name="boxStrokeColor">@color/pretty_blue</item> <!-- color when field focused -->
+
+        <item name="hintEnabled">false</item>
+        <item name="startIconDrawable">@null</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+    <!--  Fields in User Settings (TextInputEditText)  -->
+    <style name="App.UserSettings.Fields.TextEdit" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="android:paddingEnd">30dp</item>
+    </style>
+
+    <!--  Shadow for pfp in User Settings page  -->
+<!--    <style name="App.CardView" parent="Widget.MaterialComponents.CardView">-->
+<!--        <item name="cardCornerRadius">8dp</item>-->
+<!--        <item name="cardElevation">4dp</item>-->
+<!--    </style>-->
+
+    <style name="App.UserSettings.ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+
+    <style name="App.TextInputLayout.HelperTextAppearance" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginLeft">20sp</item>
+        <item name="android:layout_marginBottom">0sp</item>
+        <item name="android:textColor">@color/a_bit_lighter_black</item>
+<!--        <item name="android:textStyle">bold</item>-->
     </style>
 </resources>

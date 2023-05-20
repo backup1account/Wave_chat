@@ -1,4 +1,4 @@
-package com.example.project_app
+package com.example.project_app.ui.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -7,14 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.project_app.FirebaseManager
+import com.example.project_app.R
+import com.example.project_app.auth.AuthRepository
+import com.example.project_app.utils.Result
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.example.project_app.utils.Validators.checkEmail
+import com.example.project_app.utils.Validators.checkPassword
+import kotlinx.coroutines.launch
 
-import com.example.project_app.data.Validators.checkEmail
 
 class LoginFragment : Fragment() {
 
@@ -26,17 +33,19 @@ class LoginFragment : Fragment() {
     private lateinit var emailLayout: TextInputLayout
     private  lateinit var passwordLayout: TextInputLayout
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var authRepository: AuthRepository
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
+        authRepository = AuthRepository(FirebaseManager.auth)
+        loginViewModel = LoginViewModel(AuthRepository(FirebaseManager.auth))
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         val redirectionAction = LoginFragmentDirections.actionLoginFragmentToRegisterFragment2()
 
@@ -49,7 +58,7 @@ class LoginFragment : Fragment() {
         passwordLayout = view.findViewById(R.id.lPasswordLayoutField)!!
 
         btnSignIn.setOnClickListener {
-            signIn()
+            login()
         }
 
         btnRegisterRedirection.setOnClickListener {
@@ -59,7 +68,7 @@ class LoginFragment : Fragment() {
         return view
     }
 
-    private fun signIn() {
+    private fun login() {
         val email = lEmail.text.toString()
         val password = lPassword.text.toString()
 
@@ -73,6 +82,10 @@ class LoginFragment : Fragment() {
             emailLayout.error = "E-mail cannot be blank"
             authStepAvailable = false
         }
+        if (!checkPassword(password)) {
+            passwordLayout.error = "Enter valid password"
+            authStepAvailable = false
+        }
         if (password.isBlank()) {
             passwordLayout.error = "Password cannot be blank"
             authStepAvailable = false
@@ -82,13 +95,19 @@ class LoginFragment : Fragment() {
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if(it.isSuccessful) {
-                val action = LoginFragmentDirections.actionLoginFragmentToChatFragment()
-                findNavController().navigate(action)
-            } else {
-                Log.d("a", "login failed!")
-                // TODO: make some dialog box with information about failed login or sth
+        lifecycleScope.launch {
+            loginViewModel.signIn(email, password).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Success -> {
+                        val action = LoginFragmentDirections.actionLoginFragmentToChatFragment()
+                        findNavController().navigate(action)
+                    }
+
+                    is Result.Error -> {
+                        Log.d("a", "login failed: ${it.exception.message}")
+                        // TODO: make some dialog box with information about failed login or sth
+                    }
+                }
             }
         }
     }

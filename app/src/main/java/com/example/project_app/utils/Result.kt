@@ -1,4 +1,4 @@
-package com.example.project_app.data
+package com.example.project_app.utils
 
 
 sealed class Result<out T : Any> {

@@ -1,4 +1,4 @@
-package com.example.project_app
+package com.example.project_app.ui.auth
 
 import android.os.Bundle
 import android.util.Log
@@ -7,15 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.project_app.FirebaseManager
+import com.example.project_app.R
+import com.example.project_app.auth.AuthRepository
+import com.example.project_app.auth.UserRepository
+import com.example.project_app.auth.data_classes.User
+import com.example.project_app.ui.profile.UserViewModel
+import com.example.project_app.utils.Generators
+import com.example.project_app.utils.Result
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-
-import com.example.project_app.data.Validators.checkEmail
-import com.example.project_app.data.Validators.checkPassword
+import com.example.project_app.utils.Validators.checkEmail
+import com.example.project_app.utils.Validators.checkName
+import com.example.project_app.utils.Validators.checkPassword
+import kotlinx.coroutines.launch
 
 
 class RegisterFragment : Fragment() {
@@ -30,12 +37,21 @@ class RegisterFragment : Fragment() {
     private lateinit var emailLayout: TextInputLayout
     private lateinit var passwordLayout: TextInputLayout
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var authRepository: AuthRepository
+    private lateinit var registerViewModel: RegisterViewModel
+
+    private lateinit var userRepository: UserRepository
+    private lateinit var profileViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
+        authRepository = AuthRepository(FirebaseManager.auth)
+        registerViewModel = RegisterViewModel(authRepository)
+
+        userRepository = UserRepository(FirebaseManager.auth)
+        profileViewModel = UserViewModel(userRepository)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +76,7 @@ class RegisterFragment : Fragment() {
         passwordLayout.helperText = helperText
 
         btnSignUp.setOnClickListener {
-            signUpUser()
+            registration()
         }
 
         btnLoginRedirection.setOnClickListener {
@@ -70,13 +86,17 @@ class RegisterFragment : Fragment() {
         return view
     }
 
-    private fun signUpUser() {
+    private fun registration() {
         val name = rName.text.toString()
         val email = rEmail.text.toString()
         val password = rPassword.text.toString()
 
         var authStepAvailable = true
 
+        if (!checkName(name)) {
+            nameLayout.error = "Only letters allowed"
+            authStepAvailable = false
+        }
         if (name.isBlank()) {
             nameLayout.error = "Name cannot be blank"
             authStepAvailable = false
@@ -103,13 +123,30 @@ class RegisterFragment : Fragment() {
         }
 
         // If all credentials are correct
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful) {
-                val action = RegisterFragmentDirections.actionRegisterFragmentToChatFragment()
-                findNavController().navigate(action)
-            } else {
-                Log.d("a", "registration failed!")
-                // TODO: make some dialog box with information about failed registration or sth
+        lifecycleScope.launch {
+            registerViewModel.signUp(email, password).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Success -> {
+                        val randomGeneratedIndex = Generators.generateRandomUserIndex()
+
+                        val registeredUser = User(
+                            name = name,
+                            email = email,
+                            profPictureUrl = "https://pm1.narvii.com/6755/8bf4fe6f5365d373ffe14121d94ffb75f9281e9fv2_hq.jpg",
+                            randomIndex = randomGeneratedIndex
+                        )
+
+                        registerViewModel.addUserToDatabase(registeredUser)
+
+                        val action = RegisterFragmentDirections.actionRegisterFragmentToChatFragment()
+                        findNavController().navigate(action)
+                    }
+
+                    is Result.Error -> {
+                        Log.d("a", "registration failed: ${it.exception.message}")
+                        // TODO: make some dialog box with information about failed registration or sth
+                    }
+                }
             }
         }
     }

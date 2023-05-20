@@ -4,4 +4,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="fragment_horizontal_margin">16dp</dimen>
     <dimen name="fragment_vertical_margin">16dp</dimen>
+
+    <!--  Round corners actually  -->
+    <dimen name="settings_pfp_radius">8dp</dimen>
+    <dimen name="settings_btn_radius">25dp</dimen>
 </resources>

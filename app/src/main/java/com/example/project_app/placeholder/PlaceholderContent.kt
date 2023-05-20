@@ -48,9 +48,8 @@ object PlaceholderContent {
         return builder.toString()
     }
 
-    /**
-     * A placeholder item representing a piece of content.
-     */
+//     placeholder item -> single chat icon with someone
+//     login, zdjecie, ostatnia wiadomosc, godzina wyslania
     data class PlaceholderItem(val id: String, val content: String, val details: String) {
         override fun toString(): String = content
     }

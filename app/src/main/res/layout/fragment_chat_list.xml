@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
-        android:name="com.example.project_app.ChatFragment"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:context=".ChatFragment"
-        tools:listitem="@layout/fragment_chat"/>
+        android:layout_marginHorizontal="15dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+            <ImageView
+                    android:id="@+id/user_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_settings_24"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="12dp" />
+
+            <ImageView
+                    android:id="@+id/user_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_logout_24"
+                    android:layout_gravity="end" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchViewChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="25dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search..."
+            style="@style/MySearchViewStyle"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_messages_list"
+            android:name="com.example.project_app.ui.chat.ChatFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context=".ui.chat.ChatFragment"
+            tools:listitem="@layout/fragment_chat"/>
+
+</LinearLayout>

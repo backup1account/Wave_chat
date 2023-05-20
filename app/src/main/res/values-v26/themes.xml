@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="App.UserSettings.Fields" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:layout_marginTop">20sp</item>
+        <item name="android:layout_marginHorizontal">20sp</item>
+        <item name="boxBackgroundColor">#DCFFFFFF</item>
+        <item name="hintTextColor">@color/a_bit_darker_white</item>
+        <item name="android:textColorHint">@color/a_bit_darker_white</item>
+        <item name="startIconTint">@color/a_bit_darker_white</item>
+    </style>
+</resources>
