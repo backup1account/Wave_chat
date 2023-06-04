@@ -36,7 +36,6 @@ class AuthRepository(private val auth: FirebaseAuth) {
     suspend fun addUserToDatabase(user: User): Result<String> {
         return try {
             val userId = auth.currentUser?.uid?: return Result.Error(Exception("User ID is null"))
-
             val userDocRef = usersCollection.document(userId)
 
             userDocRef.set(user, SetOptions.merge()).await()

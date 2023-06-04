@@ -2,16 +2,17 @@ package com.example.project_app.auth
 
 import android.util.Log
 import com.example.project_app.FirebaseManager
+import com.example.project_app.auth.data_classes.Conversation
 import com.example.project_app.auth.data_classes.Message
+import com.example.project_app.auth.data_classes.User
 import com.example.project_app.utils.Result
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.google.firebase.firestore.ktx.snapshots
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -19,11 +20,10 @@ import kotlinx.coroutines.withContext
 class MessageRepository(val auth: FirebaseAuth) {
     private val MESSAGE_SEND_TAG = "SEND MESSAGE RESULT"
     private val CREATE_DOCUMENT_TAG = "CREATE DOCUMENT RESULT"
-    private val conversationsCollection = FirebaseManager.firestore.collection("conversations")
+    private val FETCH_CHAT = "FETCH CHAT RESULT"
 
-    private fun generateDocumentRef(Id1: String?, Id2: String?): String {
-        return "${Id1}_${Id2}"
-    }
+    private val conversationsCollection = FirebaseManager.firestore.collection("conversations")
+    private val usersCollection = FirebaseManager.firestore.collection("users")
 
     suspend fun sendMessage(messageToSend: Message) = withContext(Dispatchers.IO) {
         try {
@@ -72,12 +72,12 @@ class MessageRepository(val auth: FirebaseAuth) {
                                         .addOnSuccessListener {
                                             Log.d(MESSAGE_SEND_TAG, "Message saved successfully to new conversation")
                                         }.addOnFailureListener {
-                                            Log.d(MESSAGE_SEND_TAG, "Error saving message to new conversation: $it")
+                                            Log.e(MESSAGE_SEND_TAG, "Error saving message to new conversation: $it")
                                         }
                                     Log.d(CREATE_DOCUMENT_TAG, "Document created with ID: $documentId")
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.d(CREATE_DOCUMENT_TAG, "Error creating document: $e")
+                                    Log.e(CREATE_DOCUMENT_TAG, "Error creating document: $e")
                                 }
 
                         }
@@ -94,12 +94,11 @@ class MessageRepository(val auth: FirebaseAuth) {
                                             "Message ID: $messageId")
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.d(MESSAGE_SEND_TAG, "Error adding message to existing conversation: $e")
+                                    Log.e(MESSAGE_SEND_TAG, "Error adding message to existing conversation: $e")
                                 }
                         }
 
                     } else {
-                        // Handle the error case
                         Log.e("NOT_FOUND", "Error getting user conversation for sending message: ${task.exception}")
                     }
                 }
@@ -110,33 +109,45 @@ class MessageRepository(val auth: FirebaseAuth) {
     }
 
 
-    suspend fun getConversation(senderId: String, receiverId: String): MutableList<Message> = withContext(Dispatchers.IO) {
+    suspend fun getConversation(senderId: String, receiverId: String): List<Message> = withContext(Dispatchers.IO) {
         val messagesList = mutableListOf<Message>()
 
         try {
-            // Generate unique ID for conversation document - then use both users' ID
-            val documentConversationRef1 = generateDocumentRef(senderId, receiverId)
-            val documentConversationRef2 = generateDocumentRef(receiverId, senderId)
+            val query = conversationsCollection.where(
+                Filter.or(
+                    Filter.and(
+                        Filter.equalTo("senderId", senderId),
+                        Filter.equalTo("receiverId", receiverId)
+                    ),
+                    Filter.and(
+                        Filter.equalTo("senderId", receiverId),
+                        Filter.equalTo("receiverId", senderId)
+                    )
+                )
+            )
 
-            val docRef1 = conversationsCollection.document(documentConversationRef1).collection("messages")
-            val docRef2 = conversationsCollection.document(documentConversationRef2).collection("messages")
+            val querySnapshot = query.get().await()
 
-            val getDocRef1 = docRef1.get().await()
-            val getDocRef2 = docRef2.get().await()
+            if (!querySnapshot.isEmpty) {
+                for (document in querySnapshot) {
+                    Log.d(FETCH_CHAT, "${document.id} -> ${document.data}")
+                    val conversationId = document.id
 
-            val docToDisplay = when {
-                !getDocRef1.isEmpty -> getDocRef1
-                !getDocRef2.isEmpty -> getDocRef2
-                else -> null
-            }
+                    val messagesSnapshot = conversationsCollection
+                        .document(conversationId)
+                        .collection("messages")
+                        .get()
+                        .await()
 
-            docToDisplay?.let { snapshot ->
-                for (document in snapshot.documents) {
-                    val message = document.toObject(Message::class.java)
-                    message?.let {
-                        messagesList.add(it)
+                    for (messageDoc in messagesSnapshot) {
+                        val message = messageDoc.toObject(Message::class.java)
+                        message.let {
+                            messagesList.add(it)
+                        }
                     }
                 }
+            } else {
+                Log.e(FETCH_CHAT, "Error fetching conversation")
             }
 
             messagesList.sortBy { it.timestamp }
@@ -149,23 +160,13 @@ class MessageRepository(val auth: FirebaseAuth) {
     }
 
 
-    // get conversations with match id
-    suspend fun getAllUsersConversations(): List<DocumentSnapshot> {
-        val conversationsDocLists = mutableListOf<DocumentSnapshot>()
-        val userId = FirebaseManager.auth.uid
-
-        fun matchDocumentParts(documentId: String, searchPart: String): Boolean {
-            val parts = documentId.split("_")
-            val partBeforeUnderscore = parts.getOrNull(0)
-            val partAfterUnderscore = parts.getOrNull(1)
-            return partBeforeUnderscore == searchPart || partAfterUnderscore == searchPart
-        }
+    fun getAllUsersConversations(): Flow<List<Conversation>> = flow {
+        val conversationsDocLists = mutableListOf<Conversation>()
 
         try {
-            val querySnapshot = conversationsCollection
-                // Add additional filters or conditions if needed
-                .get()
-                .await()
+            val userId = FirebaseManager.auth.uid
+            val query = conversationsCollection.where(Filter.equalTo("senderId", userId))
+            val querySnapshot = query.get().await()
 
             for (document in querySnapshot.documents) {
                 val messagesCollection = document.reference.collection("messages")
@@ -176,21 +177,33 @@ class MessageRepository(val auth: FirebaseAuth) {
                 val latestMessageSnapshot = latestMessageQuery.get().await()
 
                 if (!latestMessageSnapshot.isEmpty) {
-                    val latestMessageDocument = latestMessageSnapshot.documents[0]
-                    conversationsDocLists.add(latestMessageDocument)
+                    val receiverDocId = document.getString("receiverId")
+
+                    if (receiverDocId != null) {
+                        usersCollection.document(receiverDocId).get().await()?.let { receiverSnapshot ->
+                            val receiverUser = receiverSnapshot.toObject(User::class.java)
+                            val conversationId = document.id
+
+                            val latestMessageDocument = latestMessageSnapshot.documents[0]
+                            val latestMessage = latestMessageDocument.toObject(Message::class.java)
+
+                            val conversation = Conversation(
+                                conversationId = conversationId,
+                                latestMessage = latestMessage,
+                                receiverUser = receiverUser
+                            )
+
+                            conversationsDocLists.add(conversation)
+                        }
+                    }
                 }
             }
-
-            if (conversationsDocLists.isNotEmpty()) {
-                return conversationsDocLists
-            } else {
-                throw Exception("No conversations found")
-            }
         } catch (e: Exception) {
-            // Handle the exception or log the error message
             e.printStackTrace()
             throw e
         }
+
+        emit(conversationsDocLists)
     }
 
 }

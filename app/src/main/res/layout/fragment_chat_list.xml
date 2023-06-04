@@ -39,14 +39,13 @@
             android:background="@drawable/search_view_shape"
             android:hint="@string/search" />
 
-<!--    <androidx.appcompat.widget.SearchView-->
-<!--            android:id="@+id/searchViewChat"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginVertical="25dp"-->
-<!--            app:iconifiedByDefault="false"-->
-<!--            app:queryHint="Search..."-->
-<!--            style="@style/App.Chat.SearchView"/>-->
+    <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_messages_list"
@@ -55,6 +54,7 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="15dp"
             app:layoutManager="LinearLayoutManager"
+            android:visibility="invisible"
             tools:context=".ui.chat.ChatFragment"
             tools:listitem="@layout/fragment_chat"/>
 

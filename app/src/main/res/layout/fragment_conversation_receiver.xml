@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_gravity="start"
-              android:background="#FFFFFF"
+              android:gravity="start"
               android:padding="8dp"
               android:layout_margin="4dp"
-              android:orientation="vertical">
+              android:orientation="horizontal">
 
     <TextView
             android:id="@+id/receiverContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItem"/>
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/receiver_message_shape"
+            android:textColor="@color/a_bit_lighter_black"
+            android:textAppearance="?attr/textAppearanceListItem" />
 
 </LinearLayout>

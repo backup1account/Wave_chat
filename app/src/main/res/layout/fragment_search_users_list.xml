@@ -36,12 +36,13 @@
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/loadingTextView"
+    <ProgressBar
+            android:id="@+id/loadingIndicatorSearchUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading..."
-            android:visibility="gone" />
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rViewSearchList"

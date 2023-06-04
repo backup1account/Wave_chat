@@ -1,13 +1,11 @@
 package com.example.project_app.ui.chat
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.project_app.auth.MessageRepository
+import com.example.project_app.auth.data_classes.Conversation
 import com.example.project_app.auth.data_classes.Message
 import com.example.project_app.utils.Result
-import com.google.firebase.firestore.DocumentSnapshot
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -23,7 +21,6 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
         }
     }
 
-
     fun getConversation(senderId: String, receiverId: String): LiveData<List<Message>> {
         val getConversationResult = MutableLiveData<List<Message>>()
 
@@ -38,18 +35,14 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
         return getConversationResult
     }
 
-
-    fun getAllUsersConversations(): LiveData<List<DocumentSnapshot>> {
-        val getUserConversationsResult = MutableLiveData<List<DocumentSnapshot>>()
-
-        viewModelScope.launch {
+    fun getAllUsersConversations(): LiveData<List<Conversation>> {
+        return liveData(Dispatchers.IO) {
             try {
-                val res = messageRepository.getAllUsersConversations()
-                getUserConversationsResult.value = res
+                val conversationsList = messageRepository.getAllUsersConversations()
+                emitSource(conversationsList.asLiveData())
             } catch (e: Exception) {
                 Result.Error(e)
             }
         }
-        return getUserConversationsResult
     }
 }

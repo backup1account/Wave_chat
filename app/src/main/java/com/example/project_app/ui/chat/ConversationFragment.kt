@@ -35,7 +35,6 @@ class ConversationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         messageRepository = MessageRepository(FirebaseManager.auth)
         conversationViewModel = ConversationViewModel(messageRepository)
     }
@@ -60,7 +59,7 @@ class ConversationFragment : Fragment() {
         val receiverId = user?.documentId
 
         val nameNavbar = view.findViewById<TextView>(R.id.conversationUserNameNavbar)
-        val imageNavbar = view.findViewById<ImageView>(R.id.conversationUserPfpNavbar)
+//        val imageNavbar = view.findViewById<ImageView>(R.id.conversationUserPfpNavbar)
         val goBackBtn = view.findViewById<ImageButton>(R.id.go_back_from_conversation_btn)
 
         val messageContentTextField = view.findViewById<TextInputEditText>(R.id.sendMessageTextInputEditText)
@@ -76,10 +75,10 @@ class ConversationFragment : Fragment() {
         if (user != null) {
             nameNavbar.text = "${user.name} #${user.randomIndex}"
 
-            Glide.with(this)
-                .load(user.profPictureUrl)
-                .apply(RequestOptions().transform(CircleCrop()))
-                .into(imageNavbar)
+//            Glide.with(this)
+//                .load(user.profPictureUrl)
+//                .apply(RequestOptions().transform(CircleCrop()))
+//                .into(imageNavbar)
         }
 
         sendMessages.setOnClickListener {
@@ -97,15 +96,13 @@ class ConversationFragment : Fragment() {
             }
         }
 
-//        if (senderId != null && receiverId != null) {
-//            conversationViewModel.getConversation(senderId, receiverId).observe(viewLifecycleOwner) { messages ->
-//                Log.d("ALL MESSAGES", "$messages")
-//
-//                fetchedMessages.clear()
-//                fetchedMessages.addAll(messages)
-//                conversationRecyclerViewAdapter.notifyDataSetChanged()
-//            }
-//        }
+        if (senderId != null && receiverId != null) {
+            conversationViewModel.getConversation(senderId, receiverId).observe(viewLifecycleOwner) { messages ->
+                fetchedMessages.clear()
+                fetchedMessages.addAll(messages)
+                conversationRecyclerViewAdapter.notifyDataSetChanged()
+            }
+        }
 
         if (rView is RecyclerView) {
             with(rView) {

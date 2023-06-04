@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
@@ -29,10 +30,8 @@ class SearchUsersFragment : Fragment(), OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         userRepository = UserRepository(FirebaseManager.auth)
         userViewModel = UserViewModel(userRepository)
-
         rViewAdapter = SearchUsersRecyclerViewAdapter(this)
     }
 
@@ -43,8 +42,7 @@ class SearchUsersFragment : Fragment(), OnItemClickListener {
         val view = inflater.inflate(R.layout.fragment_search_users_list, container, false)
         val rView = view.findViewById<RecyclerView>(R.id.rViewSearchList)
 
-        val loadingUsersTextView = view.findViewById<TextView>(R.id.loadingTextView)
-
+        val loadingUsersProgressBar = view.findViewById<ProgressBar>(R.id.loadingIndicatorSearchUsers)
         val searchView = view.findViewById<SearchView>(R.id.searchUsersSearchView)
         val goBackBtn = view.findViewById<ImageButton>(R.id.go_back_search_users_btn)
 
@@ -58,7 +56,6 @@ class SearchUsersFragment : Fragment(), OnItemClickListener {
             imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
         }
 
-        // Set the adapter
         if (rView is RecyclerView) {
             with(rView) {
                 this.adapter = rViewAdapter
@@ -69,7 +66,6 @@ class SearchUsersFragment : Fragment(), OnItemClickListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 userViewModel.searchUsers(newText)
                 return true
@@ -77,21 +73,17 @@ class SearchUsersFragment : Fragment(), OnItemClickListener {
         })
 
         userViewModel.searchUsersResult.observe(viewLifecycleOwner) { users ->
-            Log.d("users fetched", "$users")
-
             rViewAdapter.submitList(users)
-
             if (users.isEmpty()) {
-                // change it later ?
-                loadingUsersTextView.visibility = View.VISIBLE
+                loadingUsersProgressBar.visibility = View.VISIBLE
                 rView.visibility = View.GONE
             } else {
-                loadingUsersTextView.visibility = View.GONE
+                loadingUsersProgressBar.visibility = View.GONE
                 rView.visibility = View.VISIBLE
             }
         }
 
-        loadingUsersTextView.visibility = View.GONE
+        loadingUsersProgressBar.visibility = View.GONE
         rView.visibility = View.GONE
 
         return view

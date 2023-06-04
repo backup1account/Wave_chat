@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.project_app.FirebaseManager
 import com.example.project_app.R
 import com.example.project_app.auth.MessageRepository
 import com.example.project_app.auth.UserRepository
+import com.example.project_app.auth.data_classes.Conversation
 import com.example.project_app.ui.profile.UserViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -24,14 +26,13 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.ktx.Firebase
 
 
-class ChatFragment : Fragment() {
+class ChatFragment : Fragment(), OnConversationClickListener {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var userRepository: UserRepository
     private lateinit var userSettingsViewModel: UserViewModel
     private lateinit var messageRepository: MessageRepository
     private lateinit var conversationViewModel : ConversationViewModel
-
     private lateinit var chatRecyclerViewAdapter: ChatRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,6 @@ class ChatFragment : Fragment() {
         auth = Firebase.auth
         userRepository = UserRepository(auth)
         userSettingsViewModel = UserViewModel(userRepository)
-
         messageRepository = MessageRepository(auth)
         conversationViewModel = ConversationViewModel(messageRepository)
     }
@@ -52,9 +52,11 @@ class ChatFragment : Fragment() {
         val rView = view.findViewById<RecyclerView>(R.id.chat_messages_list)
         val topBar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
 
-        var receivedConversations = mutableListOf<DocumentSnapshot>() //  last messages only exactly ???
+        val loadingIndicator = view.findViewById<ProgressBar>(R.id.loadingIndicator)
+        loadingIndicator.visibility = View.VISIBLE
 
-        chatRecyclerViewAdapter = ChatRecyclerViewAdapter(receivedConversations)
+        val receivedConversations = mutableListOf<Conversation>()
+        chatRecyclerViewAdapter = ChatRecyclerViewAdapter(receivedConversations, this)
 
         topBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -83,13 +85,14 @@ class ChatFragment : Fragment() {
             }
         }
 
-//        conversationViewModel.getAllUsersConversations().observe(viewLifecycleOwner) {
-//            Log.d("documentsnapshots", "$it")
-//
-//            receivedConversations.clear()
-//            receivedConversations.addAll(it)
-//            chatRecyclerViewAdapter.notifyDataSetChanged()
-//        }
+        conversationViewModel.getAllUsersConversations().observe(viewLifecycleOwner) {
+            loadingIndicator.visibility = View.GONE
+            rView.visibility = View.VISIBLE
+
+            receivedConversations.clear()
+            receivedConversations.addAll(it)
+            chatRecyclerViewAdapter.notifyDataSetChanged()
+        }
 
         // Set the adapter
         if (rView is RecyclerView) {
@@ -99,6 +102,13 @@ class ChatFragment : Fragment() {
             }
         }
         return view
+    }
+
+    override fun onConversationClick(conversation: Conversation) {
+        val action = conversation.receiverUser?.let {
+            ChatFragmentDirections.actionChatFragmentToConversationFragment(it)
+        }
+        action?.let { findNavController().navigate(it) }
     }
 
 }

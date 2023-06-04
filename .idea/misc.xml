@@ -18,10 +18,12 @@
         <entry key="app/src/main/res/drawable/ic_icon_search_24.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/pfp_change_icon.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/receiver_message_shape.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/round_shape.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/search_users.xml" value="0.2395" />
         <entry key="app/src/main/res/drawable/search_view_shape.xml" value="0.199" />
+        <entry key="app/src/main/res/drawable/sender_message_shape.xml" value="0.193" />
         <entry key="app/src/main/res/drawable/settings_cancel_btn.xml" value="0.197" />
         <entry key="app/src/main/res/drawable/settings_pfp_frame_shape.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/settings_pfp_shape.xml" value="0.1125" />
@@ -31,11 +33,11 @@
         <entry key="app/src/main/res/layout/circle_shape.xml" value="0.16458333333333333" />
         <entry key="app/src/main/res/layout/fragment_authentication.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.18645833333333334" />
-        <entry key="app/src/main/res/layout/fragment_chat_list.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/fragment_chat_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_conversation.xml" value="0.1640625" />
-        <entry key="app/src/main/res/layout/fragment_conversation_list.xml" value="0.125" />
-        <entry key="app/src/main/res/layout/fragment_conversation_receiver.xml" value="0.11875" />
-        <entry key="app/src/main/res/layout/fragment_conversation_sender.xml" value="0.1640625" />
+        <entry key="app/src/main/res/layout/fragment_conversation_list.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_conversation_receiver.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_conversation_sender.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/fragment_search_users.xml" value="0.25" />

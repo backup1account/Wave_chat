@@ -1,13 +1,16 @@
 package com.example.project_app.ui.chat
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.RequestOptions
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
 import com.example.project_app.auth.data_classes.Message
@@ -76,6 +79,7 @@ class ConversationRecyclerViewAdapter(
 
     class ReceiverViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val receiverMessageTextView: TextView = itemView.findViewById(R.id.receiverContent)
+
         fun bind(message: Message) {
             receiverMessageTextView.text = message.messageContent
         }
