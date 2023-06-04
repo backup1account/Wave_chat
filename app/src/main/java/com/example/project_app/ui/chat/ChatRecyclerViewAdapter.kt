@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.example.project_app.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.project_app.databinding.FragmentChatBinding
+import com.google.firebase.firestore.DocumentSnapshot
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
-class MessagesRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<MessagesRecyclerViewAdapter.ViewHolder>() {
+
+/*
+    Adapter for displaying lists of conversations on chat main page
+*/
+
+class ChatRecyclerViewAdapter(
+    private val conversations: List<DocumentSnapshot>
+) : RecyclerView.Adapter<ChatRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(FragmentChatBinding.inflate(
@@ -23,12 +24,12 @@ class MessagesRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = conversations[position]
         holder.idView.text = item.id
-        holder.contentView.text = item.content
+//        holder.contentView.text = item.content
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = conversations.size
 
     inner class ViewHolder(binding: FragmentChatBinding) : RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber

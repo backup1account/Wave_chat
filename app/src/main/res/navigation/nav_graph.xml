@@ -33,7 +33,7 @@
         <action android:id="@+id/action_userSettingsFragment_to_chatFragment" app:destination="@id/chatFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/searchUsersFragment" android:name="com.example.project_app.SearchUsersFragment"
+    <fragment android:id="@+id/searchUsersFragment" android:name="com.example.project_app.ui.chat.SearchUsersFragment"
               android:label="fragment_search_users_list" tools:layout="@layout/fragment_search_users_list">
         <action android:id="@+id/action_searchUsersFragment_to_conversationFragment"
                 app:destination="@id/conversationFragment">
@@ -41,6 +41,6 @@
         </action>
     </fragment>
 
-    <fragment android:id="@+id/conversationFragment" android:name="com.example.project_app.ConversationFragment"
+    <fragment android:id="@+id/conversationFragment" android:name="com.example.project_app.ui.chat.ConversationFragment"
               android:label="fragment_conversation_list" tools:layout="@layout/fragment_conversation_list"/>
 </navigation>

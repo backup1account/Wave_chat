@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/blue_basic</item>
     </style>
+
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_marginTop">10dp</item>
     </style>
@@ -25,8 +26,22 @@
         <item name="colorControlNormal">#333333</item>
     </style>
 
-    <style name="App.Chat.SearchUsers" parent="Widget.AppCompat.SearchView">
+<!--    <style name="App.Chat.SearchUsers" parent="Widget.AppCompat.SearchView">-->
 <!--        <item name="searchIcon">@null</item>-->
+<!--    </style>-->
+
+    <style name="App.Chat.SearchView" parent="Widget.App.TextInputLayout">
+<!--        <item name="colorPrimary">#B10808</item>-->
+<!--        <item name="colorOnSurface">#2E9708</item>-->
+        <item name="icon">@null</item>
+        <item name="boxBackgroundColor">@null</item>
+        <item name="hintAnimationEnabled">false</item>
+<!--        label none-->
+<!--        activation indicator color -->
+
+<!--        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>-->
+<!--        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>-->
+<!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>-->
     </style>
 
 
@@ -39,7 +54,6 @@
         <item name="android:textColorHint">@color/a_bit_lighter_black</item>
 <!--        <item name="startIconTint">@color/a_bit_lighter_black</item>-->
         <item name="boxStrokeColor">@color/pretty_blue</item> <!-- color when field focused -->
-
         <item name="hintEnabled">false</item>
         <item name="startIconDrawable">@null</item>
         <item name="boxStrokeWidth">2dp</item>
@@ -61,13 +75,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-
-
     <style name="App.TextInputLayout.HelperTextAppearance" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">13sp</item>
         <item name="android:layout_marginLeft">20sp</item>
         <item name="android:layout_marginBottom">0sp</item>
         <item name="android:textColor">@color/a_bit_lighter_black</item>
-<!--        <item name="android:textStyle">bold</item>-->
     </style>
 </resources>

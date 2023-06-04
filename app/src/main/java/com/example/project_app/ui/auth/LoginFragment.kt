@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project_app.FirebaseManager
@@ -72,6 +73,9 @@ class LoginFragment : Fragment() {
         val email = lEmail.text.toString()
         val password = lPassword.text.toString()
 
+        emailLayout.error = null
+        passwordLayout.error = null
+
         var authStepAvailable = true
 
         if (!checkEmail(email)) {
@@ -104,8 +108,8 @@ class LoginFragment : Fragment() {
                     }
 
                     is Result.Error -> {
-                        Log.d("a", "login failed: ${it.exception.message}")
-                        // TODO: make some dialog box with information about failed login or sth
+                        val text = "Login process failed"
+                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

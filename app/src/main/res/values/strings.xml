@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">project_app</string>
+    <string name="app_name">wave_chat</string>
+
+    <string name="app_name_for_logo">Wave Chat</string>
     <!-- Strings related to authentication -->
     <string name="prompt_name">Name</string>
     <string name="prompt_email">E-mail</string>

@@ -45,15 +45,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/conversationRView"
-            android:name="com.example.project_app.ConversationFragment"
             android:background="#F3F3F3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="63dp"
-            android:layout_marginBottom="98dp"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".ConversationFragment"
-            tools:listitem="@layout/fragment_conversation"/>
+            android:layout_marginBottom="98dp"/>
 
     <LinearLayout
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.project_app
+package com.example.project_app.ui.chat
 
 import android.content.Context
 import android.os.Bundle
@@ -13,9 +13,10 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
+import com.example.project_app.FirebaseManager
+import com.example.project_app.R
 import com.example.project_app.auth.UserRepository
 import com.example.project_app.auth.data_classes.User
-import com.example.project_app.ui.chat.OnItemClickListener
 import com.example.project_app.ui.profile.UserViewModel
 
 

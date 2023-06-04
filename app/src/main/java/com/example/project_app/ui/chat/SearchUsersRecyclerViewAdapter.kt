@@ -1,4 +1,4 @@
-package com.example.project_app
+package com.example.project_app.ui.chat
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.project_app.auth.data_classes.User
 import com.example.project_app.databinding.FragmentSearchUsersBinding
-import com.example.project_app.ui.chat.OnItemClickListener
 
 
 class SearchUsersRecyclerViewAdapter(private val itemClickListener: OnItemClickListener) :

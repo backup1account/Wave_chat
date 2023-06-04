@@ -11,10 +11,13 @@
     <color name="a_bit_darker_white">#D8D8D8</color>
     <color name="a_bit_lighter_black">#171717</color>
 
-    <color name="blue_basic">#0F33B1</color>
+<!--    <color name="blue_basic">#0F33B1</color>-->
+    <color name="blue_basic">#18599B</color>
     <color name="darker_blue">#0C298E</color>
     <color name="light_blue_settings">#3D58B6</color>
     <color name="blue_settings_fields">#DC0F33B1</color>
+
+    <color name="upNavbarFontIconsColor">#E4E4E4</color>
 
     <color name="pretty_blue">#1C86D8</color>
 </resources>

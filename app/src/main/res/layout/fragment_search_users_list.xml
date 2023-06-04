@@ -6,8 +6,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="wrap_content"
+    <LinearLayout
+            android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:focusable="true"
                   android:focusableInTouchMode="true"
@@ -45,12 +45,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rViewSearchList"
-            android:name="com.example.project_app.SearchUsersFragment"
+            android:name="com.example.project_app.ui.chat.SearchUsersFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="25dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".SearchUsersFragment"
+            tools:context=".ui.chat.SearchUsersFragment"
             android:visibility="gone"
             tools:listitem="@layout/fragment_search_users"/>
 

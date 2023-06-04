@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project_app.FirebaseManager
@@ -60,9 +61,6 @@ class RegisterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_register, container, false)
         val redirectionAction = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment2()
 
-        val helperText = "Password must contain at least: \n• 5 letters" +
-                "\n• 1 number \n• 1 uppercase letter"
-
         rName = view?.findViewById(R.id.rNameField)!!
         rEmail = view.findViewById(R.id.rEmailField)!!
         rPassword = view.findViewById(R.id.rPasswordField)!!
@@ -73,7 +71,8 @@ class RegisterFragment : Fragment() {
         emailLayout = view.findViewById(R.id.rEmailLayoutField)
         passwordLayout = view.findViewById(R.id.rPasswordLayoutField)
 
-        passwordLayout.helperText = helperText
+        passwordLayout.helperText = "Password must contain at least: \n• 5 letters" +
+                "\n• 1 number \n• 1 uppercase letter"
 
         btnSignUp.setOnClickListener {
             registration()
@@ -92,6 +91,13 @@ class RegisterFragment : Fragment() {
         val password = rPassword.text.toString()
 
         var authStepAvailable = true
+
+        nameLayout.error = null
+        emailLayout.error = null
+        passwordLayout.error = null
+
+        passwordLayout.helperText = "Password must contain at least: \n• 5 letters" +
+                "\n• 1 number \n• 1 uppercase letter"
 
         if (!checkName(name)) {
             nameLayout.error = "Only letters allowed"
@@ -130,6 +136,7 @@ class RegisterFragment : Fragment() {
                         val randomGeneratedIndex = Generators.generateRandomUserIndex()
 
                         val registeredUser = User(
+                            documentId = FirebaseManager.auth.uid,
                             name = name,
                             email = email,
                             profPictureUrl = "https://pm1.narvii.com/6755/8bf4fe6f5365d373ffe14121d94ffb75f9281e9fv2_hq.jpg",
@@ -143,8 +150,8 @@ class RegisterFragment : Fragment() {
                     }
 
                     is Result.Error -> {
-                        Log.d("a", "registration failed: ${it.exception.message}")
-                        // TODO: make some dialog box with information about failed registration or sth
+                        val text = "Registration process failed"
+                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
