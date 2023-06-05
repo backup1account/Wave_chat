@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/card_shadow_settings_pfp.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/circle_shape.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1305" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_nav_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.2255" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.1365" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/drawable/search_icon.xml" value="0.203" />
         <entry key="app/src/main/res/drawable/search_users.xml" value="0.2395" />
         <entry key="app/src/main/res/drawable/search_view_shape.xml" value="0.199" />
+        <entry key="app/src/main/res/drawable/send_message_shape.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/sender_message_shape.xml" value="0.193" />
         <entry key="app/src/main/res/drawable/settings_cancel_btn.xml" value="0.197" />
         <entry key="app/src/main/res/drawable/settings_pfp_frame_shape.xml" value="0.1125" />
@@ -37,7 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_conversation.xml" value="0.1640625" />
         <entry key="app/src/main/res/layout/fragment_conversation_list.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_conversation_receiver.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_conversation_sender.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_conversation_sender.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/fragment_search_users.xml" value="0.25" />

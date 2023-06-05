@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name:"/>
 
+
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameTextInputLayout"
                 android:layout_width="match_parent"
@@ -139,7 +140,8 @@
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordTextInputEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,17 +158,6 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="center"
                 android:orientation="horizontal">
-
-            <Button
-                    android:id="@+id/cancel_btn_settings_user"
-                    android:layout_width="150dp"
-                    android:layout_height="45dp"
-                    android:layout_marginRight="25dp"
-                    android:background="@drawable/settings_cancel_btn"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    style="@style/App.UserSettings.ButtonStyle"
-                    android:text="Cancel"/>
 
             <Button
                     android:id="@+id/save_btn_settings_user"

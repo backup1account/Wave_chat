@@ -50,13 +50,17 @@ class UserSettingsFragment : Fragment() {
         val nameTextInputLayout = view.findViewById<TextInputLayout>(R.id.nameTextInputLayout)
         val nameTextInputEditText = view.findViewById<TextInputEditText>(R.id.nameTextInputEditText)
 
+        val emailTextInputEditText = view.findViewById<TextInputEditText>(R.id.emailTextInputEditText)
+
         val passwordTextInputLayout = view.findViewById<TextInputLayout>(R.id.passwordTextInputLayout)
         val passwordTextInputEditText = view.findViewById<TextInputEditText>(R.id.passwordTextInputEditText)
 
         val profilePictureChangeBtn = view.findViewById<ImageButton>(R.id.changeProfilePictureBtn)
 
+        emailTextInputEditText.setText("${FirebaseManager.auth.currentUser?.email}")
+        emailTextInputEditText.isEnabled = false
+
         val successButton = view.findViewById<Button>(R.id.save_btn_settings_user)
-        // TODO: CANCEL BUTTON IMPLEMENTATION
 
         val newPasswordHelperText = "Password must contain at least: \n• 5 letters" +
                 "\t• 1 number \t• 1 uppercase letter"
@@ -75,19 +79,19 @@ class UserSettingsFragment : Fragment() {
 
 
         // to generalnie do osobnej funkcji - to bylo probne
-        userRef.get().addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot.exists()) {
-                val profilePictureUrl = documentSnapshot.getString("profPictureUrl")
-
-                Glide.with(this)
-                    .load(profilePictureUrl)
-                    .transform(CenterCrop(), RoundedCornersTransformation(20, 0))
-                    .into(picturePlaceholderSettings)
-            }
-        }.addOnFailureListener { exception ->
-            // TODO: Dialogboxa z errorem ze nie udalo sie zaladowac obrazka
-            Log.e("PFP RETRIEVING ERROR", "Error retrieving profile picture: ${exception.message}", exception)
-        }
+//        userRef.get().addOnSuccessListener { documentSnapshot ->
+//            if (documentSnapshot.exists()) {
+//                val profilePictureUrl = documentSnapshot.getString("profPictureUrl")
+//
+//                Glide.with(this)
+//                    .load(profilePictureUrl)
+//                    .transform(CenterCrop(), RoundedCornersTransformation(20, 0))
+//                    .into(picturePlaceholderSettings)
+//            }
+//        }.addOnFailureListener { exception ->
+//            // TODO: Dialogboxa z errorem ze nie udalo sie zaladowac obrazka
+//            Log.e("PFP RETRIEVING ERROR", "Error retrieving profile picture: ${exception.message}", exception)
+//        }
 
         // ___________  SELECT IMAGE FROM GALLERY  ____________
 
@@ -131,8 +135,6 @@ class UserSettingsFragment : Fragment() {
                 }
             }
         }
-
-
 
         return view
     }

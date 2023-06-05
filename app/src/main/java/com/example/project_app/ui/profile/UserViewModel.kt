@@ -2,6 +2,7 @@ package com.example.project_app.ui.profile
 
 import androidx.lifecycle.*
 import com.example.project_app.auth.UserRepository
+import com.example.project_app.auth.data_classes.Message
 import com.example.project_app.auth.data_classes.User
 import com.example.project_app.utils.Result
 import com.google.firebase.auth.FirebaseUser
@@ -55,6 +56,16 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
             }
         }
         return searchUsersResult
+    }
+
+    fun saveMessageProposition(messageContent: String) {
+        viewModelScope.launch {
+            try {
+                userRepository.saveMessageProposition(messageContent)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
     }
 
 }

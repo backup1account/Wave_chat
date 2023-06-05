@@ -9,12 +9,15 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.example.project_app.utils.Result
 import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 
 class UserRepository(private val auth: FirebaseAuth) {
     private val changeUserInfo = "Change_user_info"
     private val usersCollection = FirebaseManager.firestore.collection("users")
+    private val MESSAGE_PROPOSITION = "MESSAGE PROPOSITION"
 
     fun getUserProfile() {
         val user = auth.currentUser
@@ -167,6 +170,47 @@ class UserRepository(private val auth: FirebaseAuth) {
             return resultUsers
         } else {
             throw Exception("No matching users found")
+        }
+    }
+
+    suspend fun saveMessageProposition(messageContent: String) = withContext(Dispatchers.IO) {
+        try {
+            val userId = FirebaseManager.auth.uid
+
+            if (userId != null) {
+                val userDocumentRef = usersCollection.document(userId)
+
+                userDocumentRef.get().addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val messagePropositions = documentSnapshot.get("messagePropositions") as? List<String>
+                        val updatedMessagePropositions = messagePropositions?.toMutableList()?.apply {
+                            add(messageContent)
+                        } ?: mutableListOf(messageContent)
+
+                        userDocumentRef.update("messagePropositions", updatedMessagePropositions)
+                            .addOnSuccessListener {
+                                Log.e(MESSAGE_PROPOSITION, "Updated existing propositions successfully")
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e(MESSAGE_PROPOSITION, "Error updating messages propositions: $exception")
+                            }
+                    } else {
+                        val messagePropositions = listOf(messageContent)
+
+                        userDocumentRef.set(mapOf("messagePropositions" to messagePropositions))
+                            .addOnSuccessListener {
+                                Log.e(MESSAGE_PROPOSITION, "Propositions created successfully")
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e(MESSAGE_PROPOSITION, "Error creating messages propositions: $exception")
+                            }
+                    }
+                }
+            }
+
+            Result.Success("message sent successfully!")
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
 

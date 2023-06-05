@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#2D85DD" />
+    <solid android:color="#206AB6" />
     <corners android:topLeftRadius="8dp"
              android:topRightRadius="8dp"
              android:bottomRightRadius="0dp"
              android:bottomLeftRadius="8dp" />
 
-    <padding android:left="8dp"
-             android:top="8dp"
-             android:right="8dp"
-             android:bottom="8dp" />
+    <padding android:left="10dp"
+             android:top="10dp"
+             android:right="10dp"
+             android:bottom="10dp" />
 </shape>
