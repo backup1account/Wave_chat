@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_nav_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.2255" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.153" />
+        <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.1685" />
         <entry key="app/src/main/res/drawable/ic_baseline_library_books_24.xml" value="0.1365" />
         <entry key="app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.2255" />
@@ -33,6 +34,7 @@
         <entry key="app/src/main/res/font/font.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/circle_shape.xml" value="0.16458333333333333" />
+        <entry key="app/src/main/res/layout/dialog_add_item_dictionary.xml" value="0.17447916666666666" />
         <entry key="app/src/main/res/layout/fragment_authentication.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout/fragment_chat_list.xml" value="0.25" />

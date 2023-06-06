@@ -1,7 +1,6 @@
 package com.example.project_app.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,9 +15,6 @@ import com.example.project_app.auth.AuthRepository
 import com.example.project_app.utils.Result
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.example.project_app.utils.Validators.checkEmail
 import com.example.project_app.utils.Validators.checkPassword
 import kotlinx.coroutines.launch

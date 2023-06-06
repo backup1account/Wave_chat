@@ -1,6 +1,5 @@
 package com.example.project_app.auth.data_classes
 
-
 data class Message(
     val senderId: String?,
     val receiverId: String?,

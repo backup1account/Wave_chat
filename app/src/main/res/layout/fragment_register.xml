@@ -11,14 +11,14 @@
               android:focusableInTouchMode="true">
 
     <TextView
+            android:id="@+id/appNameLogo"
             android:text="@string/app_name_for_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="18dp"
+            android:textSize="45sp"
             android:gravity="center"
-            android:id="@+id/appNameLogo"
             app:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
             app:fontFamily="cursive"/>
 
     <TextView android:id="@+id/registerTextHeader"

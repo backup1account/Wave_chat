@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
 import com.example.project_app.auth.MessageRepository
+import com.example.project_app.auth.MessagesDictionaryRepository
 import com.example.project_app.auth.UserRepository
 import com.example.project_app.auth.data_classes.Message
 import com.example.project_app.auth.data_classes.User
@@ -41,12 +42,20 @@ class ConversationFragment : Fragment() {
     private lateinit var userRepository: UserRepository
     private lateinit var userViewModel: UserViewModel
 
+    private lateinit var messagesDictionaryRepository: MessagesDictionaryRepository
+    private lateinit var messagesDictionaryViewModel: MessagesDictionaryViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         messageRepository = MessageRepository(FirebaseManager.auth)
         conversationViewModel = ConversationViewModel(messageRepository)
+
         userRepository = UserRepository(FirebaseManager.auth)
         userViewModel = UserViewModel(userRepository)
+
+        messagesDictionaryRepository = MessagesDictionaryRepository(FirebaseManager.auth)
+        messagesDictionaryViewModel = MessagesDictionaryViewModel(messagesDictionaryRepository)
     }
 
     @SuppressLint("SetTextI18n")
@@ -58,6 +67,8 @@ class ConversationFragment : Fragment() {
         val rView = view.findViewById<RecyclerView>(R.id.conversationRView)
 
         val topNavbar = view.findViewById<MaterialToolbar>(R.id.topAppBar)
+
+        val dictionaryMessagesList = mutableListOf<String>()
 
         // initially set adapter with messages as empty
         val fetchedMessages : MutableList<Message> = mutableListOf()
@@ -84,25 +95,32 @@ class ConversationFragment : Fragment() {
             topNavbar.title = "${user.name}"
         }
 
-        dictionaryMessages.setOnClickListener {
-            val items = arrayOf("Item 1", "Item 2", "Item 3")
 
-            context?.let { it1 ->
-                MaterialAlertDialogBuilder(
-                    it1,
-                    com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
-                )
-                    .setTitle(resources.getString(R.string.messages_dictionary_title))
-                    .setItems(items) { dialog, which ->
-                        val selectedItem = items[which]
-                        sendMessageEditText.setText(selectedItem)
-                        dialog.dismiss()
-                    }
-                    .setNeutralButton(R.string.messages_dictionary_cancel, null)
-                    .setPositiveButton("Add item") { dialog, which ->
-                        // Respond to positive button press
-                    }
-                    .show()
+        dictionaryMessages.setOnClickListener {
+            messagesDictionaryViewModel.getDictionaryMessages().observe(viewLifecycleOwner) {
+                dictionaryMessagesList.clear()
+                dictionaryMessagesList.addAll(it)
+
+                context?.let { it1 ->
+                    MaterialAlertDialogBuilder(
+                        it1,
+                        com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog
+                    )
+                        .setTitle(resources.getString(R.string.messages_dictionary_title))
+                        .setItems(dictionaryMessagesList.toTypedArray()) { dialog, which ->
+                            if (dictionaryMessagesList.isNotEmpty()) {
+                                val selectedItem = dictionaryMessagesList[which]
+                                sendMessageEditText.setText(selectedItem)
+                            }
+                            dialog.dismiss()
+                        }
+                        .setNeutralButton(R.string.messages_dictionary_cancel, null)
+                        .setPositiveButton("Add item") { dialog, _ ->
+                            dialog.dismiss()
+                            showNewWordDialog()
+                        }
+                        .show()
+                }
             }
         }
 
@@ -136,6 +154,31 @@ class ConversationFragment : Fragment() {
             }
         }
         return view
+    }
+
+    private fun showNewWordDialog() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_add_item_dictionary, null)
+        val editText = dialogView.findViewById<EditText>(R.id.editTextNewWordToDictionary)
+
+        val dialog = context?.let {
+            MaterialAlertDialogBuilder(it)
+                .setTitle("Add message do dictionary")
+                .setView(dialogView)
+                .setPositiveButton("Save") { dialog, _ ->
+                    val enteredText = editText.text.toString()
+                    if (enteredText.isNotBlank()) {
+                        Log.d("a", "$enteredText")
+                        messagesDictionaryViewModel.saveMessageToDictionary(enteredText)
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+        }
+
+        dialog?.show()
     }
 
 }

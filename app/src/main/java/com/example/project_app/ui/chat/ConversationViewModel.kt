@@ -45,4 +45,5 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
             }
         }
     }
+
 }

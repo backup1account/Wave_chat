@@ -18,6 +18,7 @@
     <string name="type_message">Type message...</string>
     <string name="messages_dictionary_title">Messages dictionary</string>
     <string name="messages_dictionary_cancel">Cancel</string>
+    <string name="new_messages_dictionary_placeholder">Type new message...</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
