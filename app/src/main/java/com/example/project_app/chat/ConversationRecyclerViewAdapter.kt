@@ -1,4 +1,4 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
-import com.example.project_app.auth.data_classes.Message
+import com.example.project_app.data_classes.Message
 
 
 class ConversationRecyclerViewAdapter(

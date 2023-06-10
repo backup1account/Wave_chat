@@ -1,9 +1,9 @@
-package com.example.project_app.auth
+package com.example.project_app.repositories
 
 import android.net.Uri
 import android.util.Log
 import com.example.project_app.FirebaseManager
-import com.example.project_app.auth.data_classes.User
+import com.example.project_app.data_classes.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest

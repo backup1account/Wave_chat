@@ -1,8 +1,8 @@
-package com.example.project_app.auth
+package com.example.project_app.repositories
 
 import androidx.core.net.toUri
 import com.example.project_app.FirebaseManager
-import com.example.project_app.auth.data_classes.User
+import com.example.project_app.data_classes.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.example.project_app.utils.Result

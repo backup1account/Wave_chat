@@ -1,4 +1,4 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-import com.example.project_app.auth.MessagesDictionaryRepository
+import com.example.project_app.repositories.MessagesDictionaryRepository
 import com.example.project_app.utils.Result
 
 

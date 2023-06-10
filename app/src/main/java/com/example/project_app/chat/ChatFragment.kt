@@ -1,6 +1,7 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,9 +12,10 @@ import android.widget.ProgressBar
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.project_app.R
-import com.example.project_app.auth.MessageRepository
-import com.example.project_app.auth.UserRepository
-import com.example.project_app.auth.data_classes.Conversation
+import com.example.project_app.repositories.MessageRepository
+import com.example.project_app.repositories.UserRepository
+import com.example.project_app.data_classes.Conversation
+import com.example.project_app.interfaces.OnConversationClickListener
 import com.example.project_app.ui.profile.UserViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -87,6 +89,7 @@ class ChatFragment : Fragment(), OnConversationClickListener {
             receivedConversations.clear()
             receivedConversations.addAll(it)
             chatRecyclerViewAdapter.notifyDataSetChanged()
+            Log.d("a", "$receivedConversations")
         }
 
         // Set the adapter

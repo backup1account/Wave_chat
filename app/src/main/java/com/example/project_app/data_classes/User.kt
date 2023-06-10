@@ -1,4 +1,4 @@
-package com.example.project_app.auth.data_classes
+package com.example.project_app.data_classes
 
 import android.os.Parcel
 import android.os.Parcelable

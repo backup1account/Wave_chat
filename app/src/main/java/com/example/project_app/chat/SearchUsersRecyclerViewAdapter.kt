@@ -1,4 +1,4 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
-import com.example.project_app.auth.data_classes.User
+import com.example.project_app.data_classes.User
 import com.example.project_app.databinding.FragmentSearchUsersBinding
+import com.example.project_app.interfaces.OnItemClickListener
 
 
 class SearchUsersRecyclerViewAdapter(private val itemClickListener: OnItemClickListener) :

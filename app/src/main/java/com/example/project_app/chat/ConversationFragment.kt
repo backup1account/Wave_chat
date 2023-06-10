@@ -1,4 +1,4 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,27 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
 
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
-import com.example.project_app.auth.MessageRepository
-import com.example.project_app.auth.MessagesDictionaryRepository
-import com.example.project_app.auth.UserRepository
-import com.example.project_app.auth.data_classes.Message
-import com.example.project_app.auth.data_classes.User
+import com.example.project_app.repositories.MessageRepository
+import com.example.project_app.repositories.MessagesDictionaryRepository
+import com.example.project_app.repositories.UserRepository
+import com.example.project_app.data_classes.Message
+import com.example.project_app.data_classes.User
 import com.example.project_app.ui.profile.UserViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class ConversationFragment : Fragment() {

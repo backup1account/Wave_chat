@@ -1,4 +1,4 @@
-package com.example.project_app.ui.auth
+package com.example.project_app.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
-import com.example.project_app.auth.AuthRepository
+import com.example.project_app.repositories.AuthRepository
 import com.example.project_app.utils.Result
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout

@@ -46,12 +46,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rViewSearchList"
-            android:name="com.example.project_app.ui.chat.SearchUsersFragment"
+            android:name="com.example.project_app.chat.SearchUsersFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="25dp"
             app:layoutManager="LinearLayoutManager"
-            tools:context=".ui.chat.SearchUsersFragment"
+            tools:context=".chat.SearchUsersFragment"
             android:visibility="gone"
             tools:listitem="@layout/fragment_search_users"/>
 

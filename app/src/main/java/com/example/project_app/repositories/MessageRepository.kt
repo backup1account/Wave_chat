@@ -1,10 +1,10 @@
-package com.example.project_app.auth
+package com.example.project_app.repositories
 
 import android.util.Log
 import com.example.project_app.FirebaseManager
-import com.example.project_app.auth.data_classes.Conversation
-import com.example.project_app.auth.data_classes.Message
-import com.example.project_app.auth.data_classes.User
+import com.example.project_app.data_classes.Conversation
+import com.example.project_app.data_classes.Message
+import com.example.project_app.data_classes.User
 import com.example.project_app.utils.Result
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -109,7 +109,7 @@ class MessageRepository(val auth: FirebaseAuth) {
     }
 
 
-    suspend fun getConversation(senderId: String, receiverId: String): List<Message> = withContext(Dispatchers.IO) {
+    suspend fun getConversation(senderId: String, receiverId: String): Flow<List<Message>> = flow {
         val messagesList = mutableListOf<Message>()
 
         try {
@@ -152,11 +152,11 @@ class MessageRepository(val auth: FirebaseAuth) {
 
             messagesList.sortBy { it.timestamp }
         } catch (e: Exception) {
-            messagesList.clear()
-            Result.Error(e)
+            e.printStackTrace()
+            throw e
         }
 
-        messagesList
+        emit(messagesList)
     }
 
 

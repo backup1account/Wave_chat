@@ -4,7 +4,7 @@
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
             app:startDestination="@id/loginFragment">
 
-    <fragment android:id="@+id/chatFragment" android:name="com.example.project_app.ui.chat.ChatFragment"
+    <fragment android:id="@+id/chatFragment" android:name="com.example.project_app.chat.ChatFragment"
               android:label="fragment_chat_list" tools:layout="@layout/fragment_chat_list">
         <action android:id="@+id/action_chatFragment_to_loginFragment" app:destination="@id/loginFragment"/>
         <action android:id="@+id/action_chatFragment_to_userSettingsFragment"
@@ -12,17 +12,17 @@
         <action android:id="@+id/action_chatFragment_to_searchUsersFragment" app:destination="@id/searchUsersFragment"/>
         <action android:id="@+id/action_chatFragment_to_conversationFragment"
                 app:destination="@id/conversationFragment">
-            <argument android:name="user" app:argType="com.example.project_app.auth.data_classes.User"/>
+            <argument android:name="user" app:argType="com.example.project_app.data_classes.User"/>
         </action>
     </fragment>
 
-    <fragment android:id="@+id/registerFragment" android:name="com.example.project_app.ui.auth.RegisterFragment"
+    <fragment android:id="@+id/registerFragment" android:name="com.example.project_app.auth.RegisterFragment"
               android:label="fragment_register" tools:layout="@layout/fragment_register">
         <action android:id="@+id/action_registerFragment_to_chatFragment" app:destination="@id/chatFragment"/>
         <action android:id="@+id/action_registerFragment_to_loginFragment2" app:destination="@id/loginFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/loginFragment" android:name="com.example.project_app.ui.auth.LoginFragment"
+    <fragment android:id="@+id/loginFragment" android:name="com.example.project_app.auth.LoginFragment"
               android:label="fragment_login" tools:layout="@layout/fragment_login">
         <action android:id="@+id/action_loginFragment_to_chatFragment" app:destination="@id/chatFragment"/>
         <action android:id="@+id/action_loginFragment_to_registerFragment2" app:destination="@id/registerFragment"/>
@@ -33,14 +33,14 @@
         <action android:id="@+id/action_userSettingsFragment_to_chatFragment" app:destination="@id/chatFragment"/>
     </fragment>
 
-    <fragment android:id="@+id/searchUsersFragment" android:name="com.example.project_app.ui.chat.SearchUsersFragment"
+    <fragment android:id="@+id/searchUsersFragment" android:name="com.example.project_app.chat.SearchUsersFragment"
               android:label="fragment_search_users_list" tools:layout="@layout/fragment_search_users_list">
         <action android:id="@+id/action_searchUsersFragment_to_conversationFragment"
                 app:destination="@id/conversationFragment">
-            <argument android:name="user" app:argType="com.example.project_app.auth.data_classes.User"/>
+            <argument android:name="user" app:argType="com.example.project_app.data_classes.User"/>
         </action>
     </fragment>
 
-    <fragment android:id="@+id/conversationFragment" android:name="com.example.project_app.ui.chat.ConversationFragment"
+    <fragment android:id="@+id/conversationFragment" android:name="com.example.project_app.chat.ConversationFragment"
               android:label="fragment_conversation_list" tools:layout="@layout/fragment_conversation_list"/>
 </navigation>

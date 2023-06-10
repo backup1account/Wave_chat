@@ -14,7 +14,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.project_app.FirebaseManager
 import com.example.project_app.R
-import com.example.project_app.auth.UserRepository
+import com.example.project_app.repositories.UserRepository
 import com.example.project_app.utils.Validators.checkName
 import com.example.project_app.utils.Validators.checkPassword
 import com.google.android.material.textfield.TextInputEditText

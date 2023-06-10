@@ -1,9 +1,9 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import androidx.lifecycle.*
-import com.example.project_app.auth.MessageRepository
-import com.example.project_app.auth.data_classes.Conversation
-import com.example.project_app.auth.data_classes.Message
+import com.example.project_app.repositories.MessageRepository
+import com.example.project_app.data_classes.Conversation
+import com.example.project_app.data_classes.Message
 import com.example.project_app.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,17 +22,14 @@ class ConversationViewModel(private val messageRepository: MessageRepository): V
     }
 
     fun getConversation(senderId: String, receiverId: String): LiveData<List<Message>> {
-        val getConversationResult = MutableLiveData<List<Message>>()
-
-        viewModelScope.launch {
+        return liveData(Dispatchers.IO) {
             try {
                 val result = messageRepository.getConversation(senderId, receiverId)
-                getConversationResult.value = result
+                emitSource(result.asLiveData())
             } catch (e: Exception) {
                 Result.Error(e)
             }
         }
-        return getConversationResult
     }
 
     fun getAllUsersConversations(): LiveData<List<Conversation>> {

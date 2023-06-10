@@ -1,8 +1,8 @@
-package com.example.project_app.auth
+package com.example.project_app.repositories
 
 import android.util.Log
 import com.example.project_app.FirebaseManager
-import com.example.project_app.auth.data_classes.MessagesDictionary
+import com.example.project_app.data_classes.MessagesDictionary
 import com.example.project_app.utils.Result
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers

@@ -49,13 +49,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chat_messages_list"
-            android:name="com.example.project_app.ui.chat.ChatFragment"
+            android:name="com.example.project_app.chat.ChatFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="15dp"
             app:layoutManager="LinearLayoutManager"
             android:visibility="invisible"
-            tools:context=".ui.chat.ChatFragment"
+            tools:context=".chat.ChatFragment"
             tools:listitem="@layout/fragment_chat"/>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.project_app.ui.chat
+package com.example.project_app.chat
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,8 +12,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 import com.example.project_app.FirebaseManager
-import com.example.project_app.auth.data_classes.Conversation
+import com.example.project_app.data_classes.Conversation
 import com.example.project_app.databinding.FragmentChatBinding
+import com.example.project_app.interfaces.OnConversationClickListener
 
 
 /*
